@@ -157,6 +157,7 @@ model_stream = Action.objects.model_actions
 followers = Follow.objects.followers
 following = Follow.objects.following
 
+
 def setup_generic_relations():
     """
     Set up GenericRelations for actionable models.
@@ -164,7 +165,7 @@ def setup_generic_relations():
     for model in actstream_settings.get_models().values():
         if not model:
             continue
-        for field in ('actor', 'target', 'action_object'):
+        for field in ('actor', 'action_object'):
             generic.GenericRelation(Action,
                 content_type_field='%s_content_type' % field,
                 object_id_field='%s_object_id' % field,
@@ -177,7 +178,7 @@ def setup_generic_relations():
                 model._meta.app_label, model._meta.module_name, field), None)
 
 
-# setup_generic_relations()
+setup_generic_relations()
 
 
 if actstream_settings.USE_JSONFIELD:
