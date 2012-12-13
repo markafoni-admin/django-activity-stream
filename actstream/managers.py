@@ -34,7 +34,8 @@ class ActionManager(GFKManager):
         Stream of most recent actions where object is the target.
         Keyword arguments will be passed to Action.objects.filter
         """
-        return object.target_actions.public(**kwargs)
+        from actstream.models import Action
+        return Action.object.public(**kwargs)
 
     @stream
     def action_object(self, object, **kwargs):
